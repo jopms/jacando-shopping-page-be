@@ -3,6 +3,7 @@ const { ApolloServer } = require("apollo-server-express");
 const typeDefs = require("./typeDefs");
 const resolvers = require("./resolvers");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 async function startServer() {
   const PORT = 4000;
@@ -25,7 +26,7 @@ async function startServer() {
     useNewUrlParser: true,
   });
 
-  app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+  app.listen(process.env.PORT || 4000, () => console.log(`Server is running on port ${process.env.PORT || 4000}`));
 }
 
 startServer();
