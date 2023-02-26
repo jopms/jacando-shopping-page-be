@@ -3,10 +3,14 @@ const { ApolloServer } = require("apollo-server-express");
 const typeDefs = require("./typeDefs");
 const resolvers = require("./resolvers");
 const mongoose = require("mongoose");
+
 require("dotenv").config();
 
+const uri =
+  process.env.MONGODB_URI ??
+  "mongodb+srv://jopms:QwErTy123%23@grocery-store.ncgm5.mongodb.net/?retryWrites=true&w=majority";
+
 async function startServer() {
-  const PORT = 4000;
   const app = express();
   const apolloServer = new ApolloServer({
     typeDefs,
@@ -21,13 +25,13 @@ async function startServer() {
     res.send("");
   });
 
-  mongoose.connect("mongodb://localhost:27017/items_db", {
+  mongoose.connect(uri, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
   });
 
-  app.listen(process.env.PORT || PORT, () =>
-    console.log(`Server is running on port ${process.env.PORT || PORT}`)
+  app.listen(process.env.PORT || 4000, () =>
+    console.log(`Server is running on port ${process.env.PORT || 4000}`)
   );
 }
 
